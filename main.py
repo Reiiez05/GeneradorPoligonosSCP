@@ -3,9 +3,12 @@ from config import *
 from src.io.lector_kml import cargar_kml
 from src.geometry.proyeccion_utm import obtener_crs_utm
 from src.geometry.transformador import transformar_a_utm
+from src.geometry.transformador import geometria_a_wgs84
 from src.geometry.bufferizador import generar_buffer
 from src.geometry.limpiador import limpiar_poligono
 from src.io.exportador import exportar_poligono
+from src.geometry.validador import validar_geometria
+
 
 print("Leyendo KML...")
 
@@ -25,9 +28,18 @@ poligono = generar_buffer(
     BUFFER_METROS
 )
 
+poligono = validar_geometria(poligono)
+
+poligono = limpiar_poligono(poligono)
+
 print("Limpiando geometría...")
 
 poligono = limpiar_poligono(poligono)
+
+poligono = geometria_a_wgs84(
+    poligono,
+    gdf_utm.crs
+)
 
 print("Exportando...")
 
@@ -37,4 +49,5 @@ exportar_poligono(
     OUTPUT_KML
 )
 
-print(f"Proceso finalizado: {OUTPUT_KML}")
+print(f"Geometría válida: {poligono.is_valid}")
+print(f"Tipo: {poligono.geom_type}")
