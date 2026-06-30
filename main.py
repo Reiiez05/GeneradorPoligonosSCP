@@ -1,23 +1,20 @@
 from src.lector_kml import cargar_kml
+from src.geometry.proyeccion import obtener_crs_utm
+from src.geometry.transformacion import transformar_a_utm
 
 RUTA_KML = "input/REGION I XICOTEPEC.kml"
 
 gdf = cargar_kml(RUTA_KML)
 
-print("===================================")
-print("RESUMEN DEL KML")
-print("===================================")
+crs_utm = obtener_crs_utm(gdf)
 
-print(f"Total de rutas: {len(gdf)}")
+gdf_utm = transformar_a_utm(gdf, crs_utm)
 
-print()
+print(f"CRS original : {gdf.crs}")
+print(f"CRS UTM      : {gdf_utm.crs}")
 
-print("Tipos de geometría:")
+print("\nPrimer punto original:")
+print(gdf.geometry.iloc[0])
 
-print(gdf.geometry.geom_type.value_counts())
-
-print()
-
-print("Primeras rutas:")
-
-print(gdf[["Name","geometry"]].head())
+print("\nPrimer punto en UTM:")
+print(gdf_utm.geometry.iloc[0])
