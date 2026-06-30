@@ -1,20 +1,40 @@
-from src.lector_kml import cargar_kml
-from src.geometry.proyeccion import obtener_crs_utm
-from src.geometry.transformacion import transformar_a_utm
+from config import *
 
-RUTA_KML = "input/REGION I XICOTEPEC.kml"
+from src.io.lector_kml import cargar_kml
+from src.geometry.proyeccion_utm import obtener_crs_utm
+from src.geometry.transformador import transformar_a_utm
+from src.geometry.bufferizador import generar_buffer
+from src.geometry.limpiador import limpiar_poligono
+from src.io.exportador import exportar_poligono
 
-gdf = cargar_kml(RUTA_KML)
+print("Leyendo KML...")
 
-crs_utm = obtener_crs_utm(gdf)
+gdf = cargar_kml(INPUT_KML)
 
-gdf_utm = transformar_a_utm(gdf, crs_utm)
+print("Transformando a UTM...")
 
-print(f"CRS original : {gdf.crs}")
-print(f"CRS UTM      : {gdf_utm.crs}")
+gdf_utm = transformar_a_utm(
+    gdf,
+    obtener_crs_utm(gdf)
+)
 
-print("\nPrimer punto original:")
-print(gdf.geometry.iloc[0])
+print("Generando buffer...")
 
-print("\nPrimer punto en UTM:")
-print(gdf_utm.geometry.iloc[0])
+poligono = generar_buffer(
+    gdf_utm,
+    BUFFER_METROS
+)
+
+print("Limpiando geometría...")
+
+poligono = limpiar_poligono(poligono)
+
+print("Exportando...")
+
+exportar_poligono(
+    poligono,
+    gdf.crs,
+    OUTPUT_KML
+)
+
+print(f"Proceso finalizado: {OUTPUT_KML}")
