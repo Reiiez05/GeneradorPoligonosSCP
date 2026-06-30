@@ -5,7 +5,7 @@ INPUT_KML = "input/REGION I XICOTEPEC.kml"
 OUTPUT_KML = "output/buffer20m.kml"
 
 # Distancia del buffer en metros
-BUFFER_METROS = 20
+BUFFER_METROS = 50
 
 # Simplificación (más adelante)
 SIMPLIFICACION = 5
