@@ -1,0 +1,16 @@
+# Entorno virtual
+.venv/
+
+# Caché de Python
+__pycache__/
+*.pyc
+
+# Configuración VS Code
+.vscode/
+
+# Archivos temporales
+*.log
+
+# Archivos de salida
+output/*
+!output/.gitkeep
