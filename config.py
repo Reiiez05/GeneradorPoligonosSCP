@@ -1,18 +1,47 @@
-# Archivo de entrada
+# ==========================================================
+# GENERADOR DE POLÍGONOS SCP
+# Configuración General
+# ==========================================================
+
+
+# ==========================================================
+# ENTRADA
+# ==========================================================
+
 INPUT_KML = "input/REGION I XICOTEPEC.kml"
 
-# Archivo de salida
+
+# ==========================================================
+# SALIDAS
+# ==========================================================
+
 OUTPUT_KML = "output/buffer20m.kml"
+
+OUTPUT_COORDENADAS = "output/coordenadas_scp.txt"
+
+OUTPUT_WKT = "output/geocerca.wkt"
+
+OUTPUT_WKT_POINT = "output/centro.wkt"
+
+OUTPUT_SQL = "output/insertar_zona.sql"
+
+
+# ==========================================================
+# PROCESAMIENTO GEOMÉTRICO
+# ==========================================================
 
 # Distancia del buffer en metros
 BUFFER_METROS = 50
 
-# Simplificación (más adelante)
+# Reservado para versiones futuras
 SIMPLIFICACION = 5
 
+
 # ==========================================================
-# CONFIGURACIÓN SQL SCP
+# CONFIGURACIÓN SCP
 # ==========================================================
+
+SRID = 4326
 
 USUARIO_ID = 1
 
@@ -20,9 +49,10 @@ STATUS_ZONA = 1
 
 COLOR_ZONA = "rgb(0,0,0)"
 
-SRID = 4326
 
-# DATOS DE LA ZONA
+# ==========================================================
+# INFORMACIÓN DE LA ZONA
+# ==========================================================
 
 NOMBRE_ZONA = "PRUEBA"
 
